@@ -35,76 +35,20 @@ bot.on("message", async (message) => {
         console.log(`This message wasn't for the bot ${botName}`);
         return;
       }
-
       // console.log(`${message.content} was sent by ${message.author.username}`);
       // command switch cases below for separate commands
       switch (command) {
         case "approve":
-          // some code for what see approves
-          console.log("got command see approves");
-          fs.readFile("approves.txt", (err, data) => {
-            if (err) {
-              console.log(err);
-            }
-            const arr = data.toString().split("\n");
-            const num = Math.floor(Math.random() * arr.length);
-            message.channel.send(arr[num]);
-            console.log(arr[num]);
-          });
-
+          approveRespond(message, "approves.txt");
           break;
         case "approves":
-          fs.readFile("approves.txt", (err, data) => {
-            if (err) {
-              console.log(err);
-            }
-            const arr = data.toString().split("\n");
-            const num = Math.floor(Math.random() * arr.length);
-            message.channel.send(arr[num]);
-            console.log(arr[num]);
-          });
-
-          console.log("got command approves");
+          approveRespond(message, "approves.txt");
           break;
         case "disapproves":
-          fs.readFile("disapproves.txt", (err, data) => {
-            if (err) {
-              console.log(err);
-            }
-            const arr = data.toString().split("\n");
-            const num = Math.floor(Math.random() * arr.length);
-            const filemsg = arr[num].split(" ");
-            console.log(filemsg[0]);
-            if (filemsg[0] == "Ahaha,") {
-              message.channel.send("LOL, you tried", {
-                files: ["./img/ahaha.gif"],
-              });
-            } else {
-              message.channel.send(arr[num]);
-            }
-          });
-
-          // some code for what see disaproves of
-          console.log("see disapproves");
+          disapproveRespond(message, "disapproves.txt");
           break;
         case "disapprove":
-          fs.readFile("disapproves.txt", (err, data) => {
-            if (err) {
-              console.log(err);
-            }
-            const arr = data.toString().split("\n");
-            const num = Math.floor(Math.random() * arr.length);
-            const filemsg = arr[num].split(" ");
-            console.log(filemsg[0]);
-            if (filemsg[0] == "Ahaha,") {
-              message.channel.send("LOL, you tried", {
-                files: ["./img/ahaha.gif"],
-              });
-            } else {
-              message.channel.send(arr[num]);
-            }
-          });
-          console.log("see disapproves");
+          disapproveRespond(message, "disapproves.txt");
           break;
         case "mafia":
           // set up the mafia game
@@ -114,3 +58,42 @@ bot.on("message", async (message) => {
     }
   }
 });
+
+const approveRespond = (message, file) => {
+  fs.readFile(file, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    const arr = data.toString().split("\n");
+    const num = Math.floor(Math.random() * arr.length);
+    if (arr[num] == "salute") {
+      message.channel.send({
+        files: ["./img/salute.gif"],
+      });
+    } else if (arr[num].split(" ")[0] === "YOU") {
+      message.channel.send(arr[num]);
+      message.channel.send({ files: ["./img/chuck.gif"] });
+    } else {
+      message.channel.send(arr[num]);
+    }
+  });
+};
+
+const disapproveRespond = (message, file) => {
+  fs.readFile(file, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    const arr = data.toString().split("\n");
+    const num = Math.floor(Math.random() * arr.length);
+    const filemsg = arr[num].split(" ");
+    console.log(filemsg[0]);
+    if (filemsg[0] == "Ahaha,") {
+      message.channel.send("LOL, you tried", {
+        files: ["./img/ahaha.gif"],
+      });
+    } else {
+      message.channel.send(arr[num]);
+    }
+  });
+};
