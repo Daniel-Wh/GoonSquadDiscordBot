@@ -75,7 +75,7 @@ const mafiaGenerator = (message) => {
   };
   message.channel
     .send(
-      "Alright, lets get started for mafia. Ya'll hoes got 30 seconds to react to this message. Then check your dm's for your role"
+      "Alright, lets get started for mafia. Ya'll hoes got 30 seconds to react to this message. Then check your dm's for your role, you can't fuck this up"
     )
     .then(
       (message) => {
