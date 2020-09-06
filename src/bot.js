@@ -1,6 +1,14 @@
 require("dotenv").config();
 const fs = require("fs");
-const { Client, MessageAttachment, ReactionCollector } = require("discord.js");
+const {
+  Client,
+  MessageAttachment,
+  ReactionCollector,
+  UserFlags,
+  Collection,
+  DMChannel,
+  Guild,
+} = require("discord.js");
 const { Console } = require("console");
 
 const bot = new Client();
@@ -52,30 +60,42 @@ bot.on("message", async (message) => {
           disapproveRespond(message, "disapproves.txt");
           break;
         case "mafia":
-          const time = 60000;
-          message.channel
-            .send(
-              "Alright, lets get started for mafia. Ya'll hoes got 60 seconds to react to this message. Then check your dm's for your role"
-            )
-            .then(async function (message) {
-              await message.react("");
-
-              const collector = message.createReactionCollector(filter, {
-                time: time,
-              });
-
-              collector.on("collect", (reaction, ReactionCollector) => {
-                console.log(reaction);
-                console.log(ReactionCollector);
-              });
-            });
-
-          console.log("see is mafia");
+          mafiaGenerator(message);
           break;
       }
     }
   }
 });
+
+const mafiaGenerator = (message) => {
+  const time = 30000;
+  userIDs = [];
+  const filter = (reaction, user) => {
+    if (reaction.emoji) userIDs.push(user.id);
+  };
+  message.channel
+    .send(
+      "Alright, lets get started for mafia. Ya'll hoes got 30 seconds to react to this message. Then check your dm's for your role"
+    )
+    .then(
+      (message) => {
+        message.awaitReactions(filter, { time }).then(() => {
+          let mafia = Math.floor(Math.random() * userIDs.length);
+          console.log(mafia);
+          userIDs.forEach((user, index) => {
+            dmUser = message.guild.members.cache.get(user);
+            console.log(index);
+            if (index == mafia) {
+              dmUser.send("Your Mafia motherfucker, good luck.");
+            } else {
+              dmUser.send("You're not mafia, good luck");
+            }
+          });
+        });
+      },
+      (error) => console.log(error)
+    );
+};
 
 const approveRespond = (message, file) => {
   fs.readFile(file, (err, data) => {
