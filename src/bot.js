@@ -1,6 +1,7 @@
 require("dotenv").config();
 const fs = require("fs");
-const { Client, MessageAttachment } = require("discord.js");
+const { Client, MessageAttachment, ReactionCollector } = require("discord.js");
+const { Console } = require("console");
 
 const bot = new Client();
 bot.login(process.env.CS_BOT_TOKEN);
@@ -51,7 +52,24 @@ bot.on("message", async (message) => {
           disapproveRespond(message, "disapproves.txt");
           break;
         case "mafia":
-          // set up the mafia game
+          const time = 60000;
+          message.channel
+            .send(
+              "Alright, lets get started for mafia. Ya'll hoes got 60 seconds to react to this message. Then check your dm's for your role"
+            )
+            .then(async function (message) {
+              await message.react("");
+
+              const collector = message.createReactionCollector(filter, {
+                time: time,
+              });
+
+              collector.on("collect", (reaction, ReactionCollector) => {
+                console.log(reaction);
+                console.log(ReactionCollector);
+              });
+            });
+
           console.log("see is mafia");
           break;
       }
