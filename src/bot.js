@@ -39,7 +39,6 @@ bot.on("message", async (message) => {
     } else {
       const botName = args[0].toLowerCase();
       const command = args[1].toLowerCase();
-      console.log(command);
       if (botName !== POSTFIX) {
         console.log(`This message wasn't for the bot ${botName}`);
         return;
@@ -81,10 +80,8 @@ const mafiaGenerator = (message) => {
       (message) => {
         message.awaitReactions(filter, { time }).then(() => {
           let mafia = Math.floor(Math.random() * userIDs.length);
-          console.log(mafia);
           userIDs.forEach((user, index) => {
             dmUser = message.guild.members.cache.get(user);
-            console.log(index);
             if (index == mafia) {
               dmUser.send("Your Mafia motherfucker, good luck.");
             } else {
@@ -125,7 +122,6 @@ const disapproveRespond = (message, file) => {
     const arr = data.toString().split("\n");
     const num = Math.floor(Math.random() * arr.length);
     const filemsg = arr[num].split(" ");
-    console.log(filemsg[0]);
     if (filemsg[0] == "Ahaha,") {
       message.channel.send("LOL, you tried", {
         files: ["./img/ahaha.gif"],
