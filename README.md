@@ -13,5 +13,16 @@ Type !see mafia in chat and the bot will add a message to whatever text channel 
 <b3/> 
 After 30 seconds, each player gets a DM with their role which is either mafia, or not mafia. Then the game begins. Nothing else, just use the command again to set up another game.
 
+## How to deploy with Docker
+Navigate to directory that source code is in
+<br/>
+Run the commands below to build the container and then run
+<br/>
+docker build -t mafia.bot .
+<br/>
+docker run -d --restart unless-stopped mafia.bot
+<br/>
+Now you should be able to run "docker ps" and you should see your application running. In this circumstance we're using "-d --restart unless-stopped" to allow for the application to continue to run in the event it crashes or the connection is timed out. 
+
 
 
