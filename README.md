@@ -11,7 +11,7 @@ This bot is set up to require very minimal input.
 <br/>
 Type !see mafia in chat and the bot will add a message to whatever text channel you're in. The players respond to the bot with any emoji.
 <b3/> 
-After 30 seconds, each player gets a DM with their role which is either mafia, or not mafia. Then the game begins. Nothing else, just use the command again to set up another game.
+After 30 seconds, each player gets a DM with their role which is either mafia, or not mafia. Then the game begins. Nothing else is needed, just use the command again to set up another game.
 
 ## How to deploy with Docker
 Navigate to directory that source code is in
