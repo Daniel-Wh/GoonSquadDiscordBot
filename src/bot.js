@@ -34,7 +34,8 @@ bot.on("message", async (message) => {
     // avoid index out of bounds
     if (args.length < 2) {
       message.reply(
-        "aye bruh, you need an actual command. Quit wasting my time, douche"
+        "aye bruh, you need an actual command. Quit wasting my time, douche",
+        {tts: true}
       );
     } else {
       const botName = args[0].toLowerCase();
@@ -46,10 +47,10 @@ bot.on("message", async (message) => {
       // console.log(`${message.content} was sent by ${message.author.username}`);
       // command switch cases below for separate commands
       switch (command) {
-        case "approve":
+        case "ism":
           approveRespond(message, "goonisms.txt");
           break;
-        case "approves":
+        case "isms":
           approveRespond(message, "goonisms.txt");
           break;
         case "jester":
@@ -99,10 +100,14 @@ const approveRespond = (message, file) => {
       message.channel.send({
         files: ["./img/salute.gif"],
       });
-    } else if (arr[num].split(" ")[0] === "YOU") {
-      message.channel.send(arr[num]);
-      message.channel.send({ files: ["./img/chuck.gif"] });
-    } else {
+    } else if (arr[num].split(" ")[0] === "Some") {
+      message.channel.send(arr[num], {tts: true});
+      message.channel.send({ files: ["./img/bird.jpg"] });
+    } else if (arr[num].split(" ")[0] === "IT'S"){
+      message.channel.send(arr[num], {tts: true});
+      message.channel.send({ files: ["./img/ahaha.gif"] });
+    } 
+    else {
       message.channel.send(arr[num], {tts: true});
     }
   });

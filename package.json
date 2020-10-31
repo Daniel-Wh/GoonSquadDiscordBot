@@ -1,7 +1,7 @@
 {
-  "name": "SUCS-Discord-Bot",
+  "name": "GoonBot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A very silly bot that serves two very specific purposes",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/bot.js",
