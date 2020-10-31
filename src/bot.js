@@ -12,7 +12,7 @@ const {
 const { Console } = require("console");
 
 const bot = new Client();
-bot.login(process.env.CS_BOT_TOKEN);
+bot.login(process.env.GOON_BOT_TOKEN);
 
 bot.on("ready", () => {
   console.log(`I have awoken as ${bot.user.tag}, in ${bot.guilds.toString()}`);
@@ -47,26 +47,20 @@ bot.on("message", async (message) => {
       // command switch cases below for separate commands
       switch (command) {
         case "approve":
-          approveRespond(message, "approves.txt");
+          approveRespond(message, "goonisms.txt");
           break;
         case "approves":
-          approveRespond(message, "approves.txt");
+          approveRespond(message, "goonisms.txt");
           break;
-        case "disapproves":
-          disapproveRespond(message, "disapproves.txt");
-          break;
-        case "disapprove":
-          disapproveRespond(message, "disapproves.txt");
-          break;
-        case "mafia":
-          mafiaGenerator(message);
+        case "jester":
+          jesterGenerator(message);
           break;
       }
     }
   }
 });
 
-const mafiaGenerator = (message) => {
+const jesterGenerator = (message) => {
   const time = 30000;
   userIDs = [];
   const filter = (reaction, user) => {
@@ -74,18 +68,18 @@ const mafiaGenerator = (message) => {
   };
   message.channel
     .send(
-      "Alright, lets get started for mafia. Ya'll hoes got 30 seconds to react to this message. Then check your dm's for your role, you can't fuck this up"
+      "Alright, lets get started for jester. Ya'll hoes got 30 seconds to react to this message. Then check your dm's for your role, you can't fuck this up"
     )
     .then(
       (message) => {
         message.awaitReactions(filter, { time }).then(() => {
-          let mafia = Math.floor(Math.random() * userIDs.length);
+          let jester = Math.floor(Math.random() * userIDs.length);
           userIDs.forEach((user, index) => {
             dmUser = message.guild.members.cache.get(user);
-            if (index == mafia) {
-              dmUser.send("Your Mafia motherfucker, good luck.");
+            if (index == jester) {
+              dmUser.send("You're jester motherfucker, good luck.");
             } else {
-              dmUser.send("You're not mafia, good luck");
+              dmUser.send("You're not jester, good luck");
             }
           });
         });
@@ -109,25 +103,8 @@ const approveRespond = (message, file) => {
       message.channel.send(arr[num]);
       message.channel.send({ files: ["./img/chuck.gif"] });
     } else {
-      message.channel.send(arr[num]);
+      message.channel.send(arr[num], {tts: true});
     }
   });
 };
 
-const disapproveRespond = (message, file) => {
-  fs.readFile(file, (err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    const arr = data.toString().split("\n");
-    const num = Math.floor(Math.random() * arr.length);
-    const filemsg = arr[num].split(" ");
-    if (filemsg[0] == "Ahaha,") {
-      message.channel.send("LOL, you tried", {
-        files: ["./img/ahaha.gif"],
-      });
-    } else {
-      message.channel.send(arr[num]);
-    }
-  });
-};
