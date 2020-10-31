@@ -20,7 +20,7 @@ bot.on("ready", () => {
 
 bot.on("message", async (message) => {
   const PREFIX = "!";
-  const POSTFIX = "see";
+  const POSTFIX = "goon";
   if (message.author.bot) {
     return;
   }
