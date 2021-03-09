@@ -1,7 +1,7 @@
 # Goon Squad Discord Bot
 
 ## How it works
-Jester is an optionally role for Among Us games. Essentially, a random person is selected to be Jester and that person's role is to appear as an Impostor. 
+Jester is an optional role for Among Us games. Essentially, a random person is selected to be Jester and that person's role is to appear as an Impostor. 
 <br/>
 At the end of the round a vote is taken on who the players think is Jester. If the majority of the players vote on the person who is Jester, the players win and the person who is Jester loses.
 If the players choose someone other than the person who is Jester, regardless of who won the round, the Jester player wins, everyone else loses.
